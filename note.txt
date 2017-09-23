@@ -1,0 +1,80 @@
+									网上在线书城
+一. 功能分析 :
+	①. 客户可以查看图书的信息。
+		> 可以查看图书的详情信息。
+		> 使用条件查看图书的信息(模糊查询)。 √
+		> 对图书进行翻页的功能。             √
+	
+	②. 客户可以把图书加入到购物车。
+		
+	
+	③. 查看购物车。
+	
+	
+	④. 修改购物车 。
+		> 清空购物车。
+		> 修改购物车单本图书的数量。 
+		> 删除单本的图书。
+	
+	⑤. 结账。
+	
+		> 填写用户名和账号的信息。
+	
+	⑥. 查看交易记录。
+	
+	
+二. 总体的架构
+	---Model : pojo
+	---Controller　: Servlet
+	--- View : jsp el jstl
+	
+	jsp ----->  servlet ------->pojo
+	
+	
+						service------>DAO ----------->mysql
+三. 所需要的技术
+	数据库 : mysql
+	数据源 : c3p0
+	jdbc 工具 : dbutils
+	事务解决方案: filter + threadlocal        √
+	Ajax 解决方案 : jquery + js + josn + google-gson
+	层之间的解耦方案 : 工厂设计模式
+	
+四. 实体类
+	当客户进行结账操作或者是进行查看交易记录时，才会用到一下四个表。
+	账户表		账户id
+   	Account : account_id  balance
+   	客户表	客户id	客户名		账户id
+   	User : user_id  user_name account_id
+   	交易表	 交易id      交易时间		客户id
+   	Trade :	trade_id  trade_time  user_id
+   	交易的每一个项表		交易itemID  交易数量    bookid  交易id 
+   	TradeItem : item_id quantity book_id trade_id
+   	
+   	
+   	图书表         bookid	作者		书名		价格                                     售出数量		剩余数量     
+   	Book : book_id author title price publishingDate salesAmount storeNumber remark
+   	以上需要对应数据表。
+   	
+   	购物车每一项表
+   	ShoppingCartItem :
+   	购物车表
+   	ShoppingCart:
+   	
+五. DAO 接口。
+						
+							DAO(interface)
+							|
+							|
+							|
+							|
+	BookDao	(interface)		BaseDao
+				|			|
+				|			|
+				|			|
+				|			|
+				|			|
+				 BookDaoImpl
+	
+	
+							
